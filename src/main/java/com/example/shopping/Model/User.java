@@ -13,7 +13,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int userId;
+
     String name;
+    @Column(unique = true)
     String password;
     @Column(unique = true)
     String gmail;

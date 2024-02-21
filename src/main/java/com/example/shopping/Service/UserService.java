@@ -6,6 +6,7 @@ import com.example.shopping.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,32 +16,33 @@ public class UserService {
     UserRepository userRepository;
 
 
-    public User createuser (User user){
-        return userRepository.save(user) ;
+    public User createuser(User user) {
+        return userRepository.save(user);
     }
 
-    public String editpassword ( int userId, String password){
-        User user = userRepository.findById( userId).get();
+    public String editpassword(int userId, String password) {
+        User user = userRepository.findById(userId).get();
         user.setPassword(password);
         userRepository.save(user);
-        return "Successfull" ;
+        return "Successfull";
 
     }
 
-    public User getuserid(int userId){
+    public User getuserid(int userId) {
 
         return userRepository.findById(userId).get();
 
 
     }
-    public List<UserResponse>getall(){
-        List<User> users=userRepository.findAll();
 
-        List<UserResponse> ls= new ArrayList<>();
+    public List<UserResponse> getall() {
+        List<User> users = userRepository.findAll();
 
-        for(int i=0;i<users.size();i++){
+        List<UserResponse> ls = new ArrayList<>();
 
-           UserResponse st=new UserResponse();
+        for (int i = 0; i < users.size(); i++) {
+
+            UserResponse st = new UserResponse();
             st.setName(users.get(i).getName());
             st.setPassword(users.get(i).getPassword());
             st.setGmail(users.get(i).getGmail());
@@ -50,6 +52,33 @@ public class UserService {
         }
         return ls;
     }
+
+    public boolean authenticateUser(User user) {
+        User storedUser = userRepository.findBygmail(user.getGmail());
+        return storedUser != null && storedUser.getPassword().equals(user.getPassword());
+    }
+
+
+    public User getUserBygmailAndPassword(String gmail, String password) {
+        return userRepository.findBygmailAndPassword(gmail, password);
+    }
+}
+
+//    public User getgmail( String gmail) {
+//        User user=UserRepository.findBygmail(gmail);;
+//        return user;
+//
+//
+
+//    public User  authenticateUser (String gmail) {
+//        User user=
+//        return userRepository.findByGmail(gmail);
+//    }
+
+
+
+
+
 //    public boolean authenticate(String gmail, String password) {
 ////        System.out.println(gmail + password);
 //        User user = userRepository.findOneByGmail(gmail);
@@ -94,4 +123,4 @@ public class UserService {
 //
 //    public void adduser(User user) {
 //    }
-}
+
