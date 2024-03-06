@@ -1,13 +1,16 @@
 package com.example.shopping.Controller;
 
 import com.example.shopping.Dto.LogingRequst;
-import com.example.shopping.Dto.LogingResponse;
+import com.example.shopping.Dto.UserDetails;
 import com.example.shopping.Dto.UserResponse;
+import com.example.shopping.Model.Product;
 import com.example.shopping.Model.User;
+import com.example.shopping.Service.ProductService;
 import com.example.shopping.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -76,4 +79,24 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @Autowired
+    ProductService productService;
+
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> viewProducts(@AuthenticationPrincipal UserDetails userDetails) {
+        List<Product> products;
+        if (userService.isUserAdmin(userDetails.getName())) {
+            products = productService.getAllProducts();
+        } else {
+            products = productService.getAdminProducts();
+        }
+
+        if (products == null || products.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+
 }

@@ -62,6 +62,17 @@ public class UserService {
     public User getUserBygmailAndPassword(String gmail, String password) {
         return userRepository.findBygmailAndPassword(gmail, password);
     }
+
+    public boolean isUserAdmin(String username) {
+        // Implement logic to check if the user is an admin based on username
+        // This could involve querying the database for the user's role or any other criteria.
+        // Return true if the user is an admin, otherwise return false.
+        return false;
+    }
+
+    public long getUserCount() {
+        return userRepository.count();
+    }
 }
 
 //    public User getgmail( String gmail) {

@@ -7,14 +7,12 @@ import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
-@Table (name = "admin")
+@Table(name = "product")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Admin {
+public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int adminId;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    int productId;
     String name;
-    @Column(unique = true)
-    String password;
-    String gmail;
+    double price;
 }
