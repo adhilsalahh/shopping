@@ -56,6 +56,7 @@ public class AdminController {
                            @RequestParam ("name") String name  ){
         return adminSerice.editname(adminId,name);
     }
+
     @PostMapping("/adminloging")
     public ResponseEntity<Admin> login(@RequestBody AdminLoginRequst adminLoginRequest) {
         Admin admin = adminSerice.getgmailpassword(adminLoginRequest.getGmail(), adminLoginRequest.getPassword());

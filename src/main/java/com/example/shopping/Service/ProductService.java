@@ -1,6 +1,7 @@
 package com.example.shopping.Service;
 
 import com.example.shopping.Model.Product;
+import com.example.shopping.Model.User;
 import com.example.shopping.Repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,15 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+//    public Product getProductById(int productId) {
+//        return productRepository.findById(productId).get();
+//    }
     public Product getProductById(int productId) {
-        return productRepository.findById(productId).get();
-    }
 
+        return productRepository.findById(productId).get();
+
+
+    }
 
     public Product createProduct(Product product) {
         return productRepository.save(product);
@@ -86,7 +92,9 @@ public class ProductService {
     public void deleteAllProducts() {
         productRepository.deleteAll();
     }
-
+    public List<Product> userAllProducts() {
+        return productRepository.findAll();
+    }
 
 
 }

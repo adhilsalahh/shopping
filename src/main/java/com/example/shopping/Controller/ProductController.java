@@ -26,10 +26,11 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/GET/{id}")
+    @GetMapping("/productid/{productId}")
     public Product getProductById(@PathVariable ("productId")  int productId) {
         return productService.getProductById(productId);
     }
+
 
     @PostMapping("/addproduct")
     public Product createProduct(@RequestBody Product product) {
@@ -44,10 +45,13 @@ public class ProductController {
 //        return productService.createProduct(product);
 //    }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable int productId) {
         productService.deleteProduct(productId);
         return ResponseEntity.ok().build();
     }
+
+
+
 
 }

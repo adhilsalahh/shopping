@@ -7,15 +7,11 @@ import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
-@Table(name = "product")
+@Table(name = "category")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Product {
+public class Category {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    int productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int categoryId;
     String name;
-    double price;
-    String details;
-    
-
 }

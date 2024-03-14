@@ -98,5 +98,9 @@ public class UserController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @GetMapping("/listaproducts")
+    public List<Product> userProducts() {
+        return productService.userAllProducts() ;
+    }
 
 }
